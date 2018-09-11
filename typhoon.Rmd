@@ -3,9 +3,10 @@ title: "typhoon_animation"
 author: "Wenlong Liu"
 date: "9/10/2018"
 output:
-    html_document:
-      css: ~/Typhoon_animation/Materials/css/wenlong_codes.css
-      theme: null
+    #html_document:
+    #  css: ~/Typhoon_animation/Materials/css/wenlong_codes.css
+    #  theme: null
+    rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
