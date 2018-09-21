@@ -112,3 +112,39 @@ anim_save("doksuri_tracking.gif", animation = gif_ani, path = "./Materials/")
 
 R是一款非常强大的数据分析与可视化工具，有兴趣的读者可以关注本公众号的更多精彩内容。
 
+```{r}
+require(gganimate)
+require(tidyverse)
+require(lubridate)
+require(ggmap)
+require(maps)
+require(mapdata)
+
+# import data hosted in my github rep. 
+typhoon_data <- read.csv("https://raw.github.com/wenlong-liu/typhoon_animation/master/Data/typhoon_doksuri.csv")
+
+# data cleaning.
+tracks <-  typhoon_data %>% 
+  # reforamt date time using lubridate package. 
+  mutate(time = mdy_hm(time)) %>% 
+  # rename columns.
+  rename(long = lng) 
+
+# draw a base box for maps.
+tracks_box <- make_bbox(lon = tracks$long, lat = tracks$lat, f = 0.5)
+sq_map <- get_map(location = tracks_box, maptype = "satellite", source = "google", zoom = 5)
+
+# plot map.
+ggmap(sq_map) + 
+  theme(text = element_text(size = 17))+
+  geom_point(data = tracks, mapping = aes(x = long, y = lat, color = pressure)) +
+  geom_path(data = tracks, mapping = aes(x = long, y = lat, color = pressure), size = 2) +
+  scale_color_continuous(name = "Pressure(hPa)",low = "yellow", high = "red")+
+  labs(title = "Tracking of Typhoon Doksuri happened in 2017",
+      subtitle = "Time:{frame_time}",
+      x = "Long", y = "Lat", 
+      caption = "Data Source: jswater.jiangsu.gov.cn")+
+  transition_reveal(1,time)+
+  NULL
+```
+
