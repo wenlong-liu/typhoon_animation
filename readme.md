@@ -7,3 +7,4 @@
 ### 中文版博文
 
   [绘制静态与动态台风路径图](https://github.com/wenlong-liu/typhoon_animation/blob/master/typhoon.md)
+  [绘制静态与动态台风路径图——山竹](https://github.com/wenlong-liu/typhoon_animation/blob/master/typhoon_mangkhut.md)
